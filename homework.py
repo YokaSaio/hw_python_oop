@@ -66,14 +66,11 @@ class Running(Training):
 
     def get_spent_calories(self) -> float:
         """Получаем кол-во израсходованных каллорий за тренировку."""
-        return (
-            (
-                self.CALORIES_MEAN_SPEED_MULTIPLIER_RUNNING
-                * self.get_mean_speed()
-                + self.CALORIES_MEAN_SPEED_SHIFT_RUNNING)
-            * self.weight / self.M_IN_KM
-            * (
-                self.duration * self.MIN_IN_H))
+        return ((self.CALORIES_MEAN_SPEED_MULTIPLIER_RUNNING
+                 * self.get_mean_speed()
+                 + self.CALORIES_MEAN_SPEED_SHIFT_RUNNING)
+                * self.weight / self.M_IN_KM
+                * (self.duration * self.MIN_IN_H))
 
 
 @dataclass
@@ -89,9 +86,7 @@ class SportsWalking(Training):
     CALORIES_SPEED_HEIGHT_MULTIPLIER = 0.029
     CM_IN_M = 100
     SEC_IN_MIN = 60
-    MIN_IN_H = 60
-    M_IN_KM = 1000
-    KMH_IN_MSEC = round(M_IN_KM / MIN_IN_H / SEC_IN_MIN, 3)
+    KMH_IN_MSEC = round(Training.M_IN_KM / Training.MIN_IN_H / SEC_IN_MIN, 3)
 
     def get_spent_calories(self) -> float:
         """Получаем кол-во израсходованных каллорий за тренировку."""
@@ -157,7 +152,7 @@ def read_package(workout_type: str, data: typing.List[int]):
 def main(training: Training) -> None:
     """Возвращаем строку с информацией о тренировке."""
     info = training.show_training_info()
-    return print(info.get_message())
+    print(info.get_message())
 
 
 if __name__ == '__main__':
