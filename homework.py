@@ -145,8 +145,8 @@ def read_package(workout_type: str, data: typing.List[int]):
     """Определяем вид тренировки по данным, полученным от "трекера"."""
     try:
         return SELECT_WORKOUT_TYPE[workout_type](*data)
-    except KeyError as K:
-        print(f'Неизвестный вид тренировки {K}')
+    except KeyError:
+        raise ValueError('Неизвестный вид тренировки')
 
 
 def main(training: Training) -> None:
